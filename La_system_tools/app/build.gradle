@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.xzr.La.systemtoolbox"
-        minSdkVersion 21
+        minSdkVersion 14
         targetSdkVersion 21
-        versionCode 14
-        versionName "0.0.10 experimental"
+        versionCode 2017060600
+        versionName "0.0.10.1 experimental"
     }
     buildTypes {
         release {

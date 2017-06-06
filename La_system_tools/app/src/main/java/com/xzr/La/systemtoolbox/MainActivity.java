@@ -26,10 +26,19 @@ public class MainActivity extends Activity
     }
 ListView list;
 SharedPreferences sp;
+SharedPreferences.Editor se;
+String ppp;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
 		sp=getSharedPreferences("main",0);
+		se=sp.edit();
+		ppp=sp.getString("store_path",null);
+		if(ppp==null||ppp.equals("")){
+			ppp="/mnt/sdcard/Lanthanum";
+			se.putString("store_path",ppp);
+			se.commit();
+		}
 		File f=new File(sp.getString("store_path",null));
 		f.mkdirs();
         super.onCreate(savedInstanceState);
