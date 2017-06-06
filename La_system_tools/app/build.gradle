@@ -9,7 +9,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 9
-        versionName "0.0.9 WEEKLY"
+        versionName "0.0.10 experimental"
     }
     buildTypes {
         release {
