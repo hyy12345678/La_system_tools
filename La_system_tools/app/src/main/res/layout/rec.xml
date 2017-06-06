@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="以下是获取到的分区表:"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="无数据"
+			android:id="@+id/recTextView1"/>
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:ems="10"
+			android:hint="分区名"
+			android:id="@+id/recEditText1"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="镜像路径:"
+				android:layout_margin="10dp"/>
+
+			<EditText
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:ems="10"
+				android:hint="镜像位置"
+				android:id="@+id/recEditText2"
+				android:text="/mnt/sdcard"/>
+
+		</LinearLayout>
+
+		<RadioGroup
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="vertical">
+
+			<RadioButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="刷入"
+				android:id="@+id/recRadioButton1"/>
+
+			<RadioButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="导出"
+				android:id="@+id/recRadioButton2"/>
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="刷入/导出镜像"
+				android:id="@+id/recButton1"
+				android:onClick="flash"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="分区格式化:"
+				android:layout_marginTop="10dp"/>
+
+			<EditText
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:ems="10"
+				android:hint="分区名"
+				android:id="@+id/recEditText3"/>
+
+			<EditText
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:ems="10"
+				android:hint="格式(ext2/3/4,f2fs等)"
+				android:id="@+id/recEditText4"/>
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="格式化!"
+				android:onClick="ref"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="格式化完成后，你可能需要重启设备使其正确挂载。"/>
+
+		</RadioGroup>
+
+	</LinearLayout>
+
+</ScrollView>
+

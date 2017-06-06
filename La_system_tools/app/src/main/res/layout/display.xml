@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="屏幕分辨率:"
+			android:textSize="25sp"
+			android:layout_margin="10dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="当前分辨率:未知"
+			android:id="@+id/displayTextView1"
+			android:layout_marginLeft="10dp"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<EditText
+				android:inputType="number"
+				android:layout_width="60dp"
+				android:ems="10"
+				android:layout_height="wrap_content"
+				android:id="@+id/displayEditText1"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="x"
+				android:layout_marginTop="10dp"/>
+
+			<EditText
+				android:inputType="number"
+				android:layout_width="60dp"
+				android:ems="10"
+				android:layout_height="wrap_content"
+				android:id="@+id/displayEditText2"/>
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="应用"
+				android:onClick="setsize"/>
+
+		</LinearLayout>
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="按比例修改dpi"
+			android:onClick="bili"
+			android:id="@+id/displayCheckBox1"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="vertical"
+			android:id="@+id/displayLinearLayout1">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="屏幕像素密度:"
+				android:textSize="25sp"
+				android:layout_margin="10dp"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="当前像素密度:未知"
+				android:layout_marginLeft="10dp"
+				android:id="@+id/displayTextView2"/>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<EditText
+					android:inputType="number"
+					android:ems="10"
+					android:layout_height="wrap_content"
+					android:id="@+id/displayEditText3"
+					android:layout_width="wrap_content"/>
+
+				<Button
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="应用"
+					android:onClick="setdensity"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="全部恢复默认设置"
+			android:onClick="hf"/>
+
+	</LinearLayout>
+
+</ScrollView>
+

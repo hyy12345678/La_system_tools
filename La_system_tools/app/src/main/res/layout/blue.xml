@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="指定大小空文件生成"
+			android:textSize="25sp"
+			android:layout_margin="10dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="生成指定大小的空文件 然后 你可以把它放进一个砖机包里 使它看起来与正常刷机包一般大小 然后 😂"
+			android:layout_marginBottom="10dp"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<EditText
+				android:layout_height="wrap_content"
+				android:layout_width="128dp"
+				android:ems="10"
+				android:hint="名称"
+				android:id="@+id/blueEditText1"/>
+
+			<EditText
+				android:inputType="number"
+				android:layout_width="128dp"
+				android:ems="10"
+				android:layout_height="wrap_content"
+				android:hint="大小 单位KB"
+				android:id="@+id/blueEditText2"/>
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="生成"
+				android:onClick="sc"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="锁屏密码清除"
+			android:textSize="25sp"
+			android:layout_margin="10dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="清除锁屏密码但保留指纹"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="执行"
+				android:onClick="wipepass"/>
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="清除所有配置(解决闪退)"
+				android:onClick="fixfc"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="电池校准"
+			android:layout_margin="10dp"
+			android:textSize="25sp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="通过清除batterystats.bin来实现校准"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="校准"
+			android:onClick="jz"/>
+
+	</LinearLayout>
+
+</ScrollView>
+

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="match_parent">
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="vertical"
+			android:id="@+id/cpuLinearLayout1">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="高通Big.Little 负载平衡"
+					android:textSize="25sp"
+					android:layout_margin="10dp"/>
+
+				<ProgressBar
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/cpuProgressBar1"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="小核将任务扔给大核时小核所需负载:"
+					android:layout_marginTop="15dp"/>
+
+				<EditText
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:ems="10"
+					android:id="@+id/cpuEditText1"
+					android:layout_marginTop="15dp"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="大核将任务扔回小核时大核最高负载:"
+					android:layout_marginTop="15dp"/>
+
+				<EditText
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:ems="10"
+					android:id="@+id/cpuEditText2"
+					android:layout_marginTop="15dp"/>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="以下配置何时将任务转移至小核:"
+				android:layout_marginTop="20dp"/>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="一定时间内任务数:"
+					android:layout_margin="15dp"/>
+
+				<EditText
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:ems="10"
+					android:id="@+id/cpuEditText3"
+					android:layout_marginTop="15dp"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="负载:"
+					android:layout_margin="15dp"/>
+
+				<EditText
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:ems="10"
+					android:id="@+id/cpuEditText4"
+					android:layout_marginTop="15dp"/>
+
+			</LinearLayout>
+
+			<CheckBox
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="开机自动应用"
+				android:id="@+id/cpuCheckBox1"
+				android:onClick="onboot"/>
+
+			<HorizontalScrollView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content">
+
+				<LinearLayout
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:orientation="horizontal">
+
+					<Button
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:text="应用"
+						android:onClick="ok"/>
+
+					<Button
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:text="启用大核优先负载模式"
+						android:onClick="dhy"/>
+
+					<Button
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:text="刷新"
+						android:onClick="ref"/>
+
+					<Button
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:text="加载默认设置"
+						android:onClick="hfn"/>
+
+				</LinearLayout>
+
+			</HorizontalScrollView>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="控制方案来自贴吧@同济翔 理论试用大多数大小核设备\n建议在应用后刷新"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="高通温控方案"
+			android:textSize="25sp"
+			android:layout_margin="10dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="通过操作thermald与thermal-engine开关来实现对高通处理器的温控的控制"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="开启"
+				android:onClick="ton"/>
+
+			<Button
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="关闭"
+				android:onClick="toff"/>
+
+		</LinearLayout>
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="开机自动终结温控"
+			android:id="@+id/cpuCheckBox2"
+			android:onClick="wkboot"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="自定义温控(实验性)"
+			android:layout_marginTop="20dp"
+			android:textSize="25sp"
+			android:layout_margin="10dp"/>
+
+		<HorizontalScrollView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="vertical">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="Text"
+					android:id="@+id/cpuTextView1"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="Text"
+					android:id="@+id/cpuTextView2"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="Text"
+					android:id="@+id/cpuTextView3"/>
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="Text"
+					android:id="@+id/cpuTextView4"/>
+
+			</LinearLayout>
+
+		</HorizontalScrollView>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="激活温度:"/>
+
+			<EditText
+				android:inputType="number"
+				android:layout_width="wrap_content"
+				android:ems="10"
+				android:layout_height="wrap_content"
+				android:hint="单位 ℃"
+				android:id="@+id/cpuEditText5"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="还原温度:"/>
+
+			<EditText
+				android:inputType="number"
+				android:layout_width="wrap_content"
+				android:ems="10"
+				android:layout_height="wrap_content"
+				android:id="@+id/cpuEditText6"
+				android:hint="单位 ℃"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="操作对象:"/>
+
+			<EditText
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:ems="10"
+				android:hint="cpu/cpuN/gpu (0&lt;=N&lt;=核心数-1)"
+				android:id="@+id/cpuEditText7"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="操作内容:"/>
+
+			<EditText
+				android:inputType="number"
+				android:layout_width="wrap_content"
+				android:ems="10"
+				android:layout_height="wrap_content"
+				android:hint="频率单位 khz"
+				android:id="@+id/cpuEditText8"/>
+
+		</LinearLayout>
+
+		<HorizontalScrollView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal">
+
+				<Button
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="加入操作"
+					android:onClick="xr"/>
+
+				<Button
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="将操作写入系统"
+					android:onClick="write"/>
+
+				<Button
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="备份温控文件"
+					android:onClick="bfwk"/>
+
+				<Button
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="还原已备份的温控文件"
+					android:onClick="restore"/>
+
+			</LinearLayout>
+
+		</HorizontalScrollView>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="操作对象包括cpu(降频) gpu(降频) battery(限制充电速度)等 你可以使用cpuN来指定对哪个核心操作。N的范围是0到核心数-1。同样的，你还可以在操作中填写hotplug_N来拔除某个cpu核心\n操作内容:如果你对硬件进行限频，频率单位为khz，比如2150mhz应写为2150000(不带单位) 。充电速度的操作内容可以填写0-3。另外，填写时请按照温度从低到高逐一填写。在同一温度下增加多次操作的，请对操作逐一进行增加。\n基于骁龙810的有关文档制作，不保证在所有处理器上生效。"/>
+
+	</LinearLayout>
+
+</ScrollView>
+

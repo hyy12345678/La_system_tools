@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="@android:style/Theme.Material">
+		<item name="android:colorPrimary">#FF5722</item>
+		<item name="android:colorPrimaryDark">#E64A19</item>
+		<item name="android:colorAccent">#FF6E40</item>
+		<item name="android:colorControlHighlight">#FF5722</item>
+		<item name="android:navigationBarColor">#E64A19</item>
+	</style>
+	<style name="Blue" parent="@android:style/Theme.Material">
+		<item name="android:colorPrimary">#2196F3</item>
+		<item name="android:colorPrimaryDark">#1976D2</item>
+		<item name="android:colorAccent">#64B5F6</item>
+		<item name="android:colorControlHighlight">#2196F3</item>
+		<item name="android:navigationBarColor">#1976D2</item>
+	</style>
+</resources>

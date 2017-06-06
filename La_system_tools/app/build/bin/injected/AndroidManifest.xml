@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.xzr.La.systemtoolbox"
+	android:versionCode="9"
+	android:versionName="0.0.9 WEEKLY">
+
+	<uses-sdk
+		android:minSdkVersion="21"
+		android:targetSdkVersion="21"/>
+
+	<uses-permission
+		android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+	<uses-permission
+		android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+	<application
+		android:allowBackup="true"
+		android:configChanges="orientation|screenSize"
+		android:label="@string/app_name"
+		android:theme="@style/AppTheme"
+		android:icon="@drawable/ic_launcher"
+		android:resizeableActivity="true">
+
+		<activity
+			android:name=".MainActivity"
+			android:label="@string/app_name">
+
+			<intent-filter>
+
+				<action
+					android:name="android.intent.action.MAIN"/>
+
+				<category
+					android:name="android.intent.category.LAUNCHER"/>
+
+			</intent-filter>
+
+		</activity>
+
+		<activity
+			android:name=".rec"
+			android:label="分区管理工具">
+
+		</activity>
+
+		<activity
+			android:name=".cpu"
+			android:label="处理器高级配置">
+
+		</activity>
+
+		<activity
+			android:name=".about"
+			android:label="关于/设置">
+
+		</activity>
+
+		<activity
+			android:name=".reboot"
+			android:label="高级重启"
+			android:theme="@android:style/Theme.Material.Dialog">
+
+		</activity>
+
+		<activity
+			android:name=".selinux"
+			android:label="SELinux配置">
+
+		</activity>
+
+		<activity
+			android:name=".display"
+			android:label="显示配置">
+
+		</activity>
+
+		<activity
+			android:name=".blue"
+			android:label="杂项配置"
+			android:theme="@style/Blue">
+
+		</activity>
+
+	</application>
+
+</manifest>
+
