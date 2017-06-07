@@ -9,6 +9,7 @@ import java.util.*;
 import android.util.*;
 import java.io.*;
 import android.content.pm.*;
+import com.avos.avoscloud.*;
 public class about extends Activity
 {
 	ListView l1;
@@ -16,8 +17,11 @@ public class about extends Activity
 	SharedPreferences sp;
 	SharedPreferences.Editor se;
 	AlertDialog dia;
+	AlertDialog dia2;
 	String ppp;
 	View edit;
+	long code=0;
+	boolean error=false;
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
@@ -29,6 +33,17 @@ public class about extends Activity
 				break;
 		}
     	return super.onOptionsItemSelected(item);
+    }
+	public long getVersionCode(){
+        PackageManager manager = getPackageManager();//获取包管理器
+        try {
+            //通过当前的包名获取包的信息
+            PackageInfo info = manager.getPackageInfo(getPackageName(),0);//获取包对象信息
+            return  info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 	public String getVersion() {
 		String version = null;
@@ -43,14 +58,55 @@ public class about extends Activity
 		}
 		return version;
 		 }
+		 public class checkcode extends Thread{
+			 public void run(){
+				 while(true){
+
+					 if (error)
+					 {
+						 runOnUiThread(new Runnable(){
+								 public void run(){
+									 Toast.makeText(getApplicationContext(),"网络连接错误",Toast.LENGTH_SHORT).show();
+									 refresh();
+								 }
+							 });
+						 break;
+					 }
+					 if(code!=0){
+						 refresh();
+					 }
+					 try
+					 {
+						 Thread.sleep(100);
+					 }
+					 catch (InterruptedException e)
+					 {}
+				 }
+			 }
+		 }
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
-		sp=getSharedPreferences("main",0);
+		AVObject todo = AVObject.createWithoutData("info_push", "593817d9fe88c20061f4ffb6");
+        todo.fetchInBackground(new GetCallback<AVObject>() {
+				@Override
+				public void done(AVObject avObject,AVException ge) {
+					if(ge==null){
+						code=Long.parseLong(avObject.getString("code"));
+					}
+					else{
+						error=true;
+					}
+				}
+			});
+		new checkcode().start();
 		edit=LayoutInflater.from(about.this).inflate(R.layout.input_dia,null);
+		e1=(EditText)edit.findViewById(R.id.inputdiaEditText1);
+		sp=getSharedPreferences("main",0);
+		
 		dia=new AlertDialog.Builder(about.this).setTitle("修改存储路径")
 			.setView(edit)
 			.setPositiveButton("确认",new DialogInterface.OnClickListener(){
@@ -61,12 +117,33 @@ public class about extends Activity
 				}
 			})
 			.create();
+		dia2=new AlertDialog.Builder(about.this).setTitle("反馈")
+			.setView(edit)
+			.setMessage("嗯，假如你是认真的，留个联系方式吧")
+			.setPositiveButton("确认",new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface p1,int p2){
+					AVObject a=new AVObject("feedback");
+					a.put("words",e1.getText().toString());
+					a.saveInBackground(new SaveCallback() {
+							@Override
+							public void done(AVException e) {
+								if(e == null){
+									Toast.makeText(getApplicationContext(),"反馈成功",Toast.LENGTH_SHORT).show();
+								}
+								else{
+									Toast.makeText(getApplicationContext(),"出错了",Toast.LENGTH_SHORT).show();
+								}
+							}
+						});
+				}
+			})
+			.create();
 		se=sp.edit();
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		e1=(EditText)edit.findViewById(R.id.inputdiaEditText1);
+		
 		l1=(ListView)findViewById(R.id.aboutListView1);
-		refresh();
+		
 		}
 	 public void refresh(){
 		 
@@ -84,8 +161,13 @@ public class about extends Activity
 		 map3.put("subtitle","帮助并支持开发");
 		 builder.add(map3);
 		 HashMap<String,String> map0=new HashMap<String,String>();
-		 map0.put("title","版本");
-		 map0.put("subtitle","V"+getVersion());
+		 map0.put("title","更新");
+		 if(code<=getVersionCode()){
+		 map0.put("subtitle","当前版本：V"+getVersion()+"没有更新版本");
+		 }
+		 else{
+			 map0.put("subtitle","当前版本：V"+getVersion()+"有更新版本");
+		 }
 		 builder.add(map0);
 
 		 HashMap<String,String> map1=new HashMap<String,String>();
@@ -97,8 +179,8 @@ public class about extends Activity
 		 map001.put("subtitle","酷安@pandecheng");
 		 builder.add(map001);
 		 HashMap<String,String> map2=new HashMap<String,String>();
-		 map2.put("title","版本类型");
-		 map2.put("subtitle","实验版");
+		 map2.put("title","反馈");
+		 map2.put("subtitle","帮助改进应用");
 		 builder.add(map2);
 
 		 HashMap<String,String> map4=new HashMap<String,String>();
@@ -137,6 +219,12 @@ public class about extends Activity
 					 dia.show();
 					 
 					 
+				 }
+				 if(arg2==4){
+					 
+
+					 dia2.show();
+
 				 }
 			 }
 		 };

@@ -8,6 +8,8 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import java.io.*;
 import java.util.*;
+import com.avos.avoscloud.*;
+import android.util.*;
 
 public class MainActivity extends Activity 
 {
@@ -28,9 +30,88 @@ ListView list;
 SharedPreferences sp;
 SharedPreferences.Editor se;
 String ppp;
+String gg;
+String ggt;
+String ggb;
+int ggid=0;
+String ttb;
+TextView t1;
+boolean error=false;
+public class check extends Thread{
+	public void run(){
+		while(true){
+			
+			if (error)
+{
+				runOnUiThread(new Runnable(){
+						public void run(){
+				Toast.makeText(getApplicationContext(),"网络连接错误",Toast.LENGTH_SHORT).show();
+							t1.setVisibility(View.GONE);
+				}
+				});
+				break;
+			}
+			if(gg!=null&&ggt!=null&&ggb!=null&&ggid!=0){
+				runOnUiThread(new Runnable(){
+					public void run(){
+						if(ggid>sp.getInt("ggid",0)){
+
+						se.putInt("ggid",ggid);
+						se.commit();
+						new AlertDialog.Builder(MainActivity.this)
+						
+							.setTitle(ggt)
+							.setMessage(gg)
+							.setPositiveButton(ggb,null)
+							.setCancelable(false)
+							.create()
+							.show();
+							}
+							if(ttb==null){
+								t1.setVisibility(View.GONE);
+							}
+							else{
+						t1.setText(ttb);
+						}
+					}
+				});
+				
+				break;
+			}
+		}
+		try
+		{
+			Thread.sleep(100);
+		}
+		catch (InterruptedException e)
+		{}
+	}
+}
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+		
+		
+		
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+		AVObject todo = AVObject.createWithoutData("info_push", "593817d9fe88c20061f4ffb6");
+        todo.fetchInBackground(new GetCallback<AVObject>() {
+				@Override
+				public void done(AVObject avObject,AVException ge) {
+					if(ge==null){
+						gg=avObject.getString("gg");
+						ggt=avObject.getString("title");
+						ggb=avObject.getString("button");
+						ttb=avObject.getString("titlebar");
+						ggid=avObject.getInt("ggid");
+					}
+					else{
+						error=true;
+					}
+				}
+			});
+		new check().start();
 		sp=getSharedPreferences("main",0);
 		se=sp.edit();
 		ppp=sp.getString("store_path",null);
@@ -41,8 +122,8 @@ String ppp;
 		}
 		File f=new File(sp.getString("store_path",null));
 		f.mkdirs();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+		t1=(TextView)findViewById(R.id.mainTextView1);
+		t1.setText("连接到服务器...");
 		try
 		{
 			java.lang.Process p=Runtime.getRuntime().exec("su");
@@ -135,4 +216,14 @@ String ppp;
 
 list.setOnItemClickListener(mItemClickListener);
     }
+
+	@Override
+	public void onBackPressed()
+	{
+		// TODO: Implement this method
+		super.onBackPressed();
+		ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(ACTIVITY_SERVICE); //获取应用程序管理器
+		manager.killBackgroundProcesses(getPackageName()); //强制结束当前应用程序
+	}
+	
 }
