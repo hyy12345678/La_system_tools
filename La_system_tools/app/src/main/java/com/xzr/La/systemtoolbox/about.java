@@ -10,6 +10,7 @@ import android.util.*;
 import java.io.*;
 import android.content.pm.*;
 import com.avos.avoscloud.*;
+import android.net.*;
 public class about extends Activity
 {
 	ListView l1;
@@ -20,7 +21,10 @@ public class about extends Activity
 	AlertDialog dia2;
 	String ppp;
 	View edit;
+	View edit2;
 	long code=0;
+	EditText e2;
+	String url;
 	boolean error=false;
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,8 +76,13 @@ public class about extends Activity
 							 });
 						 break;
 					 }
-					 if(code!=0){
-						 refresh();
+					 if(code!=0&&url!=null){
+						 runOnUiThread(new Runnable(){
+							 public void run(){
+								 refresh();
+							 }
+						 });
+						 
 					 }
 					 try
 					 {
@@ -90,21 +99,29 @@ public class about extends Activity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
+		l1=(ListView)findViewById(R.id.aboutListView1);
 		AVObject todo = AVObject.createWithoutData("info_push", "593817d9fe88c20061f4ffb6");
         todo.fetchInBackground(new GetCallback<AVObject>() {
 				@Override
 				public void done(AVObject avObject,AVException ge) {
 					if(ge==null){
-						code=Long.parseLong(avObject.getString("code"));
+					
+						code=Long.parseLong(avObject.getString("ver_code"));
+					
+						url=avObject.getString("update_url");
 					}
 					else{
 						error=true;
 					}
 				}
 			});
+			
 		new checkcode().start();
+		
 		edit=LayoutInflater.from(about.this).inflate(R.layout.input_dia,null);
+		edit2=LayoutInflater.from(about.this).inflate(R.layout.feedback,null);
 		e1=(EditText)edit.findViewById(R.id.inputdiaEditText1);
+		e2=(EditText)edit2.findViewById(R.id.feedbackEditText1);
 		sp=getSharedPreferences("main",0);
 		
 		dia=new AlertDialog.Builder(about.this).setTitle("修改存储路径")
@@ -118,12 +135,12 @@ public class about extends Activity
 			})
 			.create();
 		dia2=new AlertDialog.Builder(about.this).setTitle("反馈")
-			.setView(edit)
+			.setView(edit2)
 			.setMessage("嗯，假如你是认真的，留个联系方式吧")
 			.setPositiveButton("确认",new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface p1,int p2){
 					AVObject a=new AVObject("feedback");
-					a.put("words",e1.getText().toString());
+					a.put("words",e2.getText().toString());
 					a.saveInBackground(new SaveCallback() {
 							@Override
 							public void done(AVException e) {
@@ -140,13 +157,19 @@ public class about extends Activity
 			.create();
 		se=sp.edit();
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 		
 		
-		l1=(ListView)findViewById(R.id.aboutListView1);
 		
 		}
 	 public void refresh(){
-		 
+		 String up;
+		 if(code<=getVersionCode()){
+			up= "当前版本：V"+getVersion()+"  没有更新版本";
+		 }
+		 else{
+			 up= "当前版本：V"+getVersion()+"  有更新版本";
+		 }
 	     ppp=sp.getString("store_path",null);
 		 if(ppp==null||ppp.equals("")){
 			 ppp="/mnt/sdcard/Lanthanum";
@@ -162,12 +185,8 @@ public class about extends Activity
 		 builder.add(map3);
 		 HashMap<String,String> map0=new HashMap<String,String>();
 		 map0.put("title","更新");
-		 if(code<=getVersionCode()){
-		 map0.put("subtitle","当前版本：V"+getVersion()+"没有更新版本");
-		 }
-		 else{
-			 map0.put("subtitle","当前版本：V"+getVersion()+"有更新版本");
-		 }
+		 map0.put("subtitle",up);
+		
 		 builder.add(map0);
 
 		 HashMap<String,String> map1=new HashMap<String,String>();
@@ -192,6 +211,13 @@ public class about extends Activity
 		 OnItemClickListener mItemClickListener = new OnItemClickListener() {
 			 @Override
 			 public void onItemClick(AdapterView arg0, View arg1, int arg2, long arg3) {
+				 if(arg2==1){
+					 Intent intent = new Intent();        
+					 intent.setAction("android.intent.action.VIEW");    
+					 Uri content_url = Uri.parse(url);   
+					 intent.setData(content_url);  
+					 startActivity(intent);
+				 }
 				 if(arg2==0){
 					 try{
 						 new File("/mnt/sdcard/Pictures").mkdirs();

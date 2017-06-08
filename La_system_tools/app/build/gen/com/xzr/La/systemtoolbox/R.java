@@ -41,20 +41,21 @@ public final class R {
         public static final int displayLinearLayout1=0x7f060017;
         public static final int displayTextView1=0x7f060013;
         public static final int displayTextView2=0x7f060018;
-        public static final int inputdiaEditText1=0x7f06001a;
-        public static final int mainListView1=0x7f06001e;
-        public static final int mainTextView1=0x7f06001d;
-        public static final int recButton1=0x7f060024;
-        public static final int recEditText1=0x7f060020;
-        public static final int recEditText2=0x7f060021;
-        public static final int recEditText3=0x7f060025;
-        public static final int recEditText4=0x7f060026;
-        public static final int recRadioButton1=0x7f060022;
-        public static final int recRadioButton2=0x7f060023;
-        public static final int recTextView1=0x7f06001f;
-        public static final int selinuxTextView1=0x7f060027;
-        public static final int subtitle=0x7f06001c;
-        public static final int title=0x7f06001b;
+        public static final int feedbackEditText1=0x7f06001a;
+        public static final int inputdiaEditText1=0x7f06001b;
+        public static final int mainListView1=0x7f06001f;
+        public static final int mainTextView1=0x7f06001e;
+        public static final int recButton1=0x7f060025;
+        public static final int recEditText1=0x7f060021;
+        public static final int recEditText2=0x7f060022;
+        public static final int recEditText3=0x7f060026;
+        public static final int recEditText4=0x7f060027;
+        public static final int recRadioButton1=0x7f060023;
+        public static final int recRadioButton2=0x7f060024;
+        public static final int recTextView1=0x7f060020;
+        public static final int selinuxTextView1=0x7f060028;
+        public static final int subtitle=0x7f06001d;
+        public static final int title=0x7f06001c;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -62,12 +63,13 @@ public final class R {
         public static final int circle=0x7f030002;
         public static final int cpu=0x7f030003;
         public static final int display=0x7f030004;
-        public static final int input_dia=0x7f030005;
-        public static final int list=0x7f030006;
-        public static final int main=0x7f030007;
-        public static final int reboot=0x7f030008;
-        public static final int rec=0x7f030009;
-        public static final int selinux=0x7f03000a;
+        public static final int feedback=0x7f030005;
+        public static final int input_dia=0x7f030006;
+        public static final int list=0x7f030007;
+        public static final int main=0x7f030008;
+        public static final int reboot=0x7f030009;
+        public static final int rec=0x7f03000a;
+        public static final int selinux=0x7f03000b;
     }
     public static final class string {
         public static final int app_name=0x7f040000;

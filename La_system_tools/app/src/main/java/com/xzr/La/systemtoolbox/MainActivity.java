@@ -108,6 +108,7 @@ public class check extends Thread{
 					}
 					else{
 						error=true;
+						Log.e("av",ge.toString());
 					}
 				}
 			});
