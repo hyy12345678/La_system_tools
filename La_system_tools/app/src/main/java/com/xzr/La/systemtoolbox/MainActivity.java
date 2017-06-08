@@ -115,6 +115,15 @@ public class check extends Thread{
 		new check().start();
 		sp=getSharedPreferences("main",0);
 		se=sp.edit();
+		if(!sp.getBoolean("uploaddev",false)){
+			se.putBoolean("uploaddev",true);
+			se.commit();
+			AVObject a=new AVObject("device");
+			a.put("brand",android.os.Build.BRAND);
+			a.put("model",android.os.Build.MODEL);
+			a.put("android",android.os.Build.VERSION.RELEASE);
+			a.saveInBackground();
+		}
 		ppp=sp.getString("store_path",null);
 		if(ppp==null||ppp.equals("")){
 			ppp="/mnt/sdcard/Lanthanum";
