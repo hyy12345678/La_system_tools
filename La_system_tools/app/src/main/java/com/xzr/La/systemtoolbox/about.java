@@ -86,7 +86,7 @@ public class about extends Activity
 								 pr.setVisibility(View.GONE);
 							 }
 						 });
-						 
+						 break;
 					 }
 					 try
 					 {
@@ -94,7 +94,9 @@ public class about extends Activity
 					 }
 					 catch (InterruptedException e)
 					 {}
+					
 				 }
+				 
 			 }
 		 }
 	@Override
