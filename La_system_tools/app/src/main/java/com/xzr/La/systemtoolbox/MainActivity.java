@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.*;
 import com.avos.avoscloud.*;
 import android.util.*;
+import android.content.pm.*;
 
 public class MainActivity extends Activity 
 {
@@ -26,6 +27,17 @@ public class MainActivity extends Activity
 		}
     	return super.onOptionsItemSelected(item);
     }
+	public long getVersionCode(){
+        PackageManager manager = getPackageManager();//获取包管理器
+        try {
+            //通过当前的包名获取包的信息
+            PackageInfo info = manager.getPackageInfo(getPackageName(),0);//获取包对象信息
+            return  info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 ListView list;
 SharedPreferences sp;
 SharedPreferences.Editor se;
@@ -36,6 +48,7 @@ String ggb;
 int ggid=0;
 String ttb;
 TextView t1;
+long code;
 boolean error=false;
 public class check extends Thread{
 	public void run(){
@@ -51,9 +64,19 @@ public class check extends Thread{
 				});
 				break;
 			}
-			if(gg!=null&&ggt!=null&&ggb!=null&&ggid!=0){
+			if(gg!=null&&ggt!=null&&ggb!=null&&ggid!=0&&code!=0){
 				runOnUiThread(new Runnable(){
 					public void run(){
+						if(code>getVersionCode()){
+							new AlertDialog.Builder(MainActivity.this)
+
+								.setTitle("发现新版本!")
+								.setMessage("前往关于>更新 进行更新")
+								.setPositiveButton("好的",null)
+								.setCancelable(false)
+								.create()
+								.show();
+						}
 						if(ggid>sp.getInt("ggid",0)){
 
 						se.putInt("ggid",ggid);
@@ -67,7 +90,7 @@ public class check extends Thread{
 							.create()
 							.show();
 							}
-							if(ttb==null){
+							if(ttb==null||ttb.equals("")){
 								t1.setVisibility(View.GONE);
 							}
 							else{
@@ -95,6 +118,28 @@ public class check extends Thread{
 		
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+		try
+		{
+			java.lang.Process p=Runtime.getRuntime().exec("su");
+			OutputStreamWriter o=new OutputStreamWriter(p.getOutputStream());
+			BufferedReader b=new BufferedReader(new InputStreamReader(p.getInputStream()));
+			o.write("echo by xzr467706992\n");
+			o.flush();
+			if(!b.readLine().equals("by xzr467706992")){
+				Toast.makeText(getApplicationContext(),"root权限什么的都是不存在的",Toast.LENGTH_SHORT).show();
+				finish();
+			}
+
+		}
+		catch (IOException e)
+		{
+			Toast.makeText(getApplicationContext(),"root权限什么的都是不存在的",Toast.LENGTH_SHORT).show();
+			finish();
+		}
+		catch(RuntimeException e){
+			Toast.makeText(getApplicationContext(),"root权限什么的都是不存在的",Toast.LENGTH_SHORT).show();
+			finish();
+		}
 		AVObject todo = AVObject.createWithoutData("info_push", "593817d9fe88c20061f4ffb6");
         todo.fetchInBackground(new GetCallback<AVObject>() {
 				@Override
@@ -105,6 +150,7 @@ public class check extends Thread{
 						ggb=avObject.getString("button");
 						ttb=avObject.getString("titlebar");
 						ggid=avObject.getInt("ggid");
+						code=Long.parseLong(avObject.getString("ver_code"));
 					}
 					else{
 						error=true;
@@ -134,28 +180,7 @@ public class check extends Thread{
 		f.mkdirs();
 		t1=(TextView)findViewById(R.id.mainTextView1);
 		t1.setText("连接到服务器...");
-		try
-		{
-			java.lang.Process p=Runtime.getRuntime().exec("su");
-			OutputStreamWriter o=new OutputStreamWriter(p.getOutputStream());
-			BufferedReader b=new BufferedReader(new InputStreamReader(p.getInputStream()));
-			o.write("echo by xzr467706992\n");
-			o.flush();
-			if(!b.readLine().equals("by xzr467706992")){
-				Toast.makeText(getApplicationContext(),"root权限什么的都是不存在的",Toast.LENGTH_SHORT).show();
-				finish();
-			}
-			
-		}
-		catch (IOException e)
-		{
-			Toast.makeText(getApplicationContext(),"root权限什么的都是不存在的",Toast.LENGTH_SHORT).show();
-			finish();
-		}
-		catch(RuntimeException e){
-			Toast.makeText(getApplicationContext(),"root权限什么的都是不存在的",Toast.LENGTH_SHORT).show();
-			finish();
-		}
+		
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
 		list=(ListView)findViewById(R.id.mainListView1);
 		List<HashMap<String,String>> builder=new ArrayList<HashMap<String,String>>();
@@ -232,8 +257,9 @@ list.setOnItemClickListener(mItemClickListener);
 	{
 		// TODO: Implement this method
 		super.onBackPressed();
-		ActivityManager manager = (ActivityManager)getApplicationContext().getSystemService(ACTIVITY_SERVICE); //获取应用程序管理器
-		manager.killBackgroundProcesses(getPackageName()); //强制结束当前应用程序
+		android.os.Process.killProcess(android.os.Process.myPid());   //获取PID 
+		System.exit(0);  
+		
 	}
 	
 }

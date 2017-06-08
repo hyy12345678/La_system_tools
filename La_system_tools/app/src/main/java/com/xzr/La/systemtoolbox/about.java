@@ -17,6 +17,7 @@ public class about extends Activity
 	EditText e1;
 	SharedPreferences sp;
 	SharedPreferences.Editor se;
+	ProgressBar pr;
 	AlertDialog dia;
 	AlertDialog dia2;
 	String ppp;
@@ -24,6 +25,7 @@ public class about extends Activity
 	View edit2;
 	long code=0;
 	EditText e2;
+	EditText e3;
 	String url;
 	boolean error=false;
 	@Override
@@ -72,6 +74,7 @@ public class about extends Activity
 								 public void run(){
 									 Toast.makeText(getApplicationContext(),"网络连接错误",Toast.LENGTH_SHORT).show();
 									 refresh();
+									 pr.setVisibility(View.GONE);
 								 }
 							 });
 						 break;
@@ -80,6 +83,7 @@ public class about extends Activity
 						 runOnUiThread(new Runnable(){
 							 public void run(){
 								 refresh();
+								 pr.setVisibility(View.GONE);
 							 }
 						 });
 						 
@@ -99,6 +103,7 @@ public class about extends Activity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
+		pr=(ProgressBar)findViewById(R.id.aboutProgressBar1);
 		l1=(ListView)findViewById(R.id.aboutListView1);
 		AVObject todo = AVObject.createWithoutData("info_push", "593817d9fe88c20061f4ffb6");
         todo.fetchInBackground(new GetCallback<AVObject>() {
@@ -122,6 +127,7 @@ public class about extends Activity
 		edit2=LayoutInflater.from(about.this).inflate(R.layout.feedback,null);
 		e1=(EditText)edit.findViewById(R.id.inputdiaEditText1);
 		e2=(EditText)edit2.findViewById(R.id.feedbackEditText1);
+		e3=(EditText)edit2.findViewById(R.id.feedbackEditText2);
 		sp=getSharedPreferences("main",0);
 		
 		dia=new AlertDialog.Builder(about.this).setTitle("修改存储路径")
@@ -136,11 +142,12 @@ public class about extends Activity
 			.create();
 		dia2=new AlertDialog.Builder(about.this).setTitle("反馈")
 			.setView(edit2)
-			.setMessage("嗯，假如你是认真的，留个联系方式吧")
+
 			.setPositiveButton("确认",new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface p1,int p2){
 					AVObject a=new AVObject("feedback");
 					a.put("words",e2.getText().toString());
+					a.put("user",e3.getText().toString());
 					a.saveInBackground(new SaveCallback() {
 							@Override
 							public void done(AVException e) {
@@ -165,7 +172,7 @@ public class about extends Activity
 	 public void refresh(){
 		 String up;
 		 if(code<=getVersionCode()){
-			up= "当前版本：V"+getVersion()+"  没有更新版本";
+			up= "当前版本：V"+getVersion()+"  已是最新版本";
 		 }
 		 else{
 			 up= "当前版本：V"+getVersion()+"  有更新版本";

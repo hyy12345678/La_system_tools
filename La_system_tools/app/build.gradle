@@ -8,8 +8,8 @@ android {
         applicationId "com.xzr.La.systemtoolbox"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 2017060800
-        versionName "0.1 experimental"
+        versionCode 2017060801
+        versionName "0.1.1 experimental"
     }
     buildTypes {
         release {

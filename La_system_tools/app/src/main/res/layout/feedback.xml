@@ -9,7 +9,15 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:ems="10"
-		android:id="@+id/feedbackEditText1"/>
+		android:id="@+id/feedbackEditText1"
+		android:hint="想要什么新的操作？"/>
+
+	<EditText
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:ems="10"
+		android:id="@+id/feedbackEditText2"
+		android:hint="我该怎么联系你？"/>
 
 </LinearLayout>
 
